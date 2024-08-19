@@ -1,4 +1,0 @@
-<local:MyIconTextButton Style="{StaticResource ClipboardButton}"
-                        LogoScale="0.85"
-                        Logo="{StaticResource ClipboardIcon}"
-                        EventData="%s" />

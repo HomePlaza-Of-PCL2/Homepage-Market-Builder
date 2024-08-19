@@ -47,6 +47,7 @@ export type XamlAvaliableTypes =
     | "H5"
     | "H6"
     | "Text"
+    | "XAML"
     | "Icons"
     | "PresetControls"
     | "Styles";

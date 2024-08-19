@@ -1,4 +1,0 @@
-<local:MyIconTextButton Style="{StaticResource IssueButton}"
-                        LogoScale="0.85"
-                        Logo="{StaticResource IssueIcon}"
-                        EventData="%s" />

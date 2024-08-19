@@ -13,6 +13,7 @@ export class Analyzer {
     async initalize() {
         this.filedata = await new FileIO(this.filename).readFile();
         this.filelines = this.filedata.split("\n");
+        console.log(`<Analyzer> 初始化文件 ${this.filename}`);
     }
     analyze() {
         if (this.filedata === null || this.filelines === null)
@@ -39,35 +40,66 @@ export class Analyzer {
             .split("\r\n")
             .slice(2, -1);
         const content: At.Content[] = [];
+        let Mark_IsInXamlInject_Mode: boolean = false;
+        let cache: string[];
         contentlines.forEach((line) => {
-            if (line.startsWith("#")) {
-                content.push({ type: "H1", content: line.replace("# ", "") });
-            } else if (line.startsWith("##")) {
-                content.push({ type: "H2", content: line.replace("## ", "") });
-            } else if (line.startsWith("###")) {
-                content.push({ type: "H3", content: line.replace("### ", "") });
-            } else if (line.startsWith("####")) {
+            if (line.toUpperCase() === "<!-- XAMLSTART -->") {
+                console.log("<Analyzer> 进入 XoM 模式");
+                Mark_IsInXamlInject_Mode = true;
+                cache = [];
+            } else if (line.toUpperCase() === "<!-- XAMLEND -->") {
+                console.log("<Analyzer> 退出 XoM 模式");
+                Mark_IsInXamlInject_Mode = false;
                 content.push({
-                    type: "H4",
-                    content: line.replace("#### ", ""),
+                    type: "XAML",
+                    content: cache.join(""),
                 });
-            } else if (line.startsWith("#####")) {
-                content.push({
-                    type: "H5",
-                    content: line.replace("##### ", ""),
-                });
-            } else if (line.startsWith("######")) {
-                content.push({
-                    type: "H6",
-                    content: line.replace("###### ", ""),
-                });
-            } else if (line.startsWith(">")) {
-                content.push({
-                    type: "Quote",
-                    content: line.replace("> ", ""),
-                });
+                cache = [];
             } else {
-                content.push({ type: "Text", content: line });
+                if (Mark_IsInXamlInject_Mode) {
+                console.log(`<Analyzer> XoM 模式写入 ${line}`);
+                    cache.push(line);
+                } else {
+                console.log(`<Analyzer> MD 模式写入 ${line}`);
+                    if (line.startsWith("#")) {
+                        content.push({
+                            type: "H1",
+                            content: line.replace("# ", ""),
+                        });
+                    } else if (line.startsWith("##")) {
+                        content.push({
+                            type: "H2",
+                            content: line.replace("## ", ""),
+                        });
+                    } else if (line.startsWith("###")) {
+                        content.push({
+                            type: "H3",
+                            content: line.replace("### ", ""),
+                        });
+                    } else if (line.startsWith("####")) {
+                        content.push({
+                            type: "H4",
+                            content: line.replace("#### ", ""),
+                        });
+                    } else if (line.startsWith("#####")) {
+                        content.push({
+                            type: "H5",
+                            content: line.replace("##### ", ""),
+                        });
+                    } else if (line.startsWith("######")) {
+                        content.push({
+                            type: "H6",
+                            content: line.replace("###### ", ""),
+                        });
+                    } else if (line.startsWith(">")) {
+                        content.push({
+                            type: "Quote",
+                            content: line.replace("> ", ""),
+                        });
+                    } else {
+                        content.push({ type: "Text", content: line });
+                    }
+                }
             }
         });
         return { header, content };

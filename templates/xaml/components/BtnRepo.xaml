@@ -1,4 +1,0 @@
-<local:MyIconTextButton Style="{StaticResource GithubRepoButton}"
-                        LogoScale="0.85"
-                        Logo="{StaticResource GitIcon}"
-                        EventData="%s" />
