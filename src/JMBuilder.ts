@@ -117,7 +117,7 @@ const main = async () => {
         await new Generator().initalize()
     ).generateXaml(
         "Footer",
-        hash,
+        hash === "Unknown" ? hash : hash.slice(0, 7),
         hash === "Unknown" ? "" : `EventType="打开网页"`,
         `https://github.com/HomePlaza-Of-PCL2/Homepage-Market/commit/${hash}`
     );
