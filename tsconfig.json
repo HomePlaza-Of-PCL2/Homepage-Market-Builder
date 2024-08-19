@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist", // 输出目录
+        "rootDir": "./src", // 源文件目录
+        "target": "es2022", // 编译后的 JavaScript 版本（可以调整为你需要的版本）
+        "module": "es2022", // 模块系统，可以是 "ESNext", "CommonJS", "AMD" 等
+        "strict": true, // 启用所有严格类型检查选项
+        "esModuleInterop": true, // 允许 default 导入非 ES 模块
+        "skipLibCheck": true, // 跳过库文件的类型检查
+        "forceConsistentCasingInFileNames": true, // 文件名一致性检查
+    },
+    "include": ["./src/**/*"], // 包含的文件（这里包括 src 文件夹中的所有文件）
+    "exclude": ["node_modules"] // 排除的文件或文件夹
+}
