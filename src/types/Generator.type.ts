@@ -16,6 +16,7 @@ export type XamlMds = {
     H4: string;
     H5: string;
     H6: string;
+    Quote: string;
     Text: string;
 };
 
@@ -46,6 +47,7 @@ export type XamlAvaliableTypes =
     | "H4"
     | "H5"
     | "H6"
+    | "Quote"
     | "Text"
     | "XAML"
     | "Icons"

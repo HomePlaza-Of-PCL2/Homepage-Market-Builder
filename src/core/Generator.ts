@@ -37,6 +37,9 @@ async function loadTemplates(): Promise<Gt.XamlTemplate> {
             H4: await new FileIO("templates/xaml/markdown/H4.xaml").readFile(),
             H5: await new FileIO("templates/xaml/markdown/H5.xaml").readFile(),
             H6: await new FileIO("templates/xaml/markdown/H6.xaml").readFile(),
+            Quote: await new FileIO(
+                "templates/xaml/markdown/Quote.xaml"
+            ).readFile(),
             Text: await new FileIO(
                 "templates/xaml/markdown/Text.xaml"
             ).readFile(),
@@ -113,6 +116,9 @@ export class Generator {
                 break;
             case "H6":
                 template = this.xaml_template.markdown.H6;
+                break;
+            case "Quote":
+                template = this.xaml_template.markdown.Quote;
                 break;
             case "XAML":
             case "Text":
